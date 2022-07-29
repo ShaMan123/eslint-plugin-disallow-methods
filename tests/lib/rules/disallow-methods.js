@@ -50,13 +50,16 @@ ruleTester.run("disallow-methods", rule, {
             method: "disallowedMethod"
         }, {
             object: "anotherObject",
-            method: "anotherDisallowedMethod"
+            method: "anotherDisallowedMethod",
+            log: (obj) => {
+                return `foo bar baz ${obj.object} ${obj.method}` 
+            }
         }]],
         errors: [{
             message: "Calling someObject.disallowedMethod() is disallowed",
             type: "CallExpression"
         }, {
-            message: "Calling anotherObject.anotherDisallowedMethod() is disallowed",
+            message: "foo bar baz anotherObject anotherDisallowedMethod",
             type: "CallExpression"
         }]
         }, {
