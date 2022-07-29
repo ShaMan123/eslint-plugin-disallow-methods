@@ -70,13 +70,23 @@ ruleTester.run("disallow-methods", rule, {
                 type: "CallExpression"
             }]
         }, {
-            code: "var m = Math; m.hypot(3, 4)",
+            code: "var m = Math; m.hypot(3, 4);",
             options: [[{
                 object: "Math",
                 method: "hypot"
             }]],
             errors: [{
                 message: "Calling Math.hypot() is disallowed",
+                type: "CallExpression"
+            }]
+        }, {
+            code: "var m; m.hypot(3, 4);",
+            options: [[{
+                object: "*",
+                method: "hypot"
+            }]],
+            errors: [{
+                message: "Calling *.hypot() is disallowed",
                 type: "CallExpression"
             }]
         }, {
